@@ -1,0 +1,9 @@
+## Interface: 11200
+## Title: StorylineClassic
+## Author: http://twitch.tv/ConditionsATR
+## Version: 1.12.1.82115
+## Notes: Enhanced quest storytelling
+## URL: https://github.com/ConditionsATR/StorylineClassic
+## DefaultState: Enabled
+## LoadOnDemand: 0
+## SavedVariables: StorylineClassic_Data
