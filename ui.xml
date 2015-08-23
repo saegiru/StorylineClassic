@@ -7,7 +7,7 @@
 	
 	<Frame name="Storyline_StandardParchmentFrame" virtual="true">
 		<Layers>
-			<Layer level="OVERLAY">
+			<Layer level="ARTWORK">
 				<!-- CORNERS -->
 				<Texture name="$parent.BorderTopLeft" file="Interface\AddOns\StorylineClassic\Artwork\QuestionFrame\Question-Main">
 					<Size x="209" y="158"/>
@@ -288,7 +288,7 @@
 				</Texture>
 			</Layer>
 			<Layer level="OVERLAY" textureSubLevel="3">
-				<Texture name="Storyline_NPCFrameBanner" atlas="GarrMission_RewardsBanner-Desaturate" useAtlasSize="false">
+				<Texture name="Storyline_NPCFrameBanner" file="Interface\AddOns\StorylineClassic\Artwork\Garrison\GarrMission_RewardsBanner-Desaturate.tga"><!--GarrMission_RewardsBanner-Desaturate-->
 					<Size x="384" y="96"/>
 					<Anchors>
 						<Anchor point="TOP">
@@ -313,6 +313,7 @@
 		<Scripts>
 			<OnLoad>
 				Storyline_NPCFrameBG:SetAlpha(0.5);
+				Storyline_NPCFrameBanner:SetTexture("Interface\\AddOns\\StorylineClassic\\Artwork\\Garrison\\GarrMission_RewardsBanner-Desaturate");
 			</OnLoad>
 		</Scripts>
 		<Frames>
@@ -503,8 +504,8 @@
 						</Texture>
 					</Layer>
 					<Layer level="ARTWORK">
-						<Texture name="Storyline_NPCFrameRewardsChest" atlas="GarrMission-AllianceChest" useAtlasSize="false">
-							<Size x="165" y="110"/>
+						<Texture name="Storyline_NPCFrameRewardsChest" file="Interface\AddOns\StorylineClassic\Artwork\Garrison\GarrMission-AllianceChest"><!--GarrMission-AllianceChest-->
+							<Size x="165" y="150"/>
 							<Anchors>
 								<Anchor point="BOTTOMRIGHT">
 									<Offset>
