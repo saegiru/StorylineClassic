@@ -42,8 +42,8 @@
 	<CheckButton name="Storyline_CheckBox" inherits="OptionsCheckButtonTemplate" virtual="true" checked="false">
 		<Scripts>
 			<OnLoad>
-				getglobal(self:GetName().."Text"):SetFontObject(GameFontNormalSmall);
-				this.Text = getglobal(self:GetName().."Text");
+				getglobal(this:GetName().."Text"):SetFontObject(GameFontNormalSmall);
+				this.Text = getglobal(this:GetName().."Text");
 			</OnLoad><!--
 			<OnEnter>
 				Storyline_RefreshTooltipForFrame(self);
@@ -59,11 +59,11 @@
 
 	<!-- Common icon button  -->
 	<Button name="Storyline_IconButton" virtual="true">
-		<Size x="26" y="26"/>
+		<Size x="48" y="48"/>
 		<Layers>
 			<Layer level="OVERLAY">
 				<Texture name="$parentIcon" file="Interface\AddOns\StorylineClassic\Artwork\Icons\INV_Misc_QuestionMark">
-					<Size x="26" y="26"/>
+					<Size x="48" y="48"/>
 					<Anchors>
 						<Anchor point="CENTER">
 							<Offset>
@@ -238,7 +238,7 @@
 		<Size x="220" y="100"/>
 		<Layers>
 			<Layer level="ARTWORK">
-				<Texture parentKey="ArrowUP" inherits="HelpPlateArrowDOWN" hidden="true">
+				<Texture name="ArrowUP" inherits="HelpPlateArrowDOWN" hidden="true">
 					<Size x="53" y="21"/>
 					<Anchors>
 						<Anchor point="TOP" relativePoint="BOTTOM">
@@ -248,7 +248,7 @@
 						</Anchor>
 					</Anchors>
 				</Texture>
-				<Texture parentKey="ArrowDOWN" inherits="HelpPlateArrowUP" hidden="true">
+				<Texture name="ArrowDOWN" inherits="HelpPlateArrowUP" hidden="true">
 					<Size x="53" y="21"/>
 					<Anchors>
 						<Anchor point="BOTTOM" relativePoint="TOP">
@@ -258,7 +258,7 @@
 						</Anchor>
 					</Anchors>
 				</Texture>
-				<Texture parentKey="ArrowRIGHT" inherits="HelpPlateArrowDOWN" hidden="true">
+				<Texture name="ArrowRIGHT" inherits="HelpPlateArrowDOWN" hidden="true">
 					<Size x="53" y="21"/>
 					<Anchors>
 						<Anchor point="RIGHT" relativePoint="LEFT">
@@ -268,7 +268,7 @@
 						</Anchor>
 					</Anchors>
 				</Texture>
-				<Texture parentKey="ArrowLEFT" inherits="HelpPlateArrowDOWN" hidden="true">
+				<Texture name="ArrowLEFT" inherits="HelpPlateArrowDOWN" hidden="true">
 					<Size x="53" y="21"/>
 					<Anchors>
 						<Anchor point="LEFT" relativePoint="RIGHT">
@@ -280,7 +280,7 @@
 				</Texture>
 			</Layer>
 			<Layer level="BORDER">
-				<Texture parentKey="ArrowGlowUP" inherits="HelpPlateArrow-GlowDOWN" hidden="true" alphaMode="ADD" alpha="0.5">
+				<Texture name="ArrowGlowUP" inherits="HelpPlateArrow-GlowDOWN" hidden="true" alphaMode="ADD" alpha="0.5">
 					<Size x="53" y="21"/>
 					<Anchors>
 						<Anchor point="TOP" relativePoint="BOTTOM">
@@ -290,7 +290,7 @@
 						</Anchor>
 					</Anchors>
 				</Texture>
-				<Texture parentKey="ArrowGlowDOWN" inherits="HelpPlateArrow-GlowUP" hidden="true" alphaMode="ADD" alpha="0.5">
+				<Texture name="ArrowGlowDOWN" inherits="HelpPlateArrow-GlowUP" hidden="true" alphaMode="ADD" alpha="0.5">
 					<Size x="53" y="21"/>
 					<Anchors>
 						<Anchor point="BOTTOM" relativePoint="TOP">
@@ -300,7 +300,7 @@
 						</Anchor>
 					</Anchors>
 				</Texture>
-				<Texture parentKey="ArrowGlowRIGHT" inherits="HelpPlateArrow-GlowDOWN" hidden="true" alphaMode="ADD" alpha="0.5">
+				<Texture name="ArrowGlowRIGHT" inherits="HelpPlateArrow-GlowDOWN" hidden="true" alphaMode="ADD" alpha="0.5">
 					<Size x="53" y="21"/>
 					<Anchors>
 						<Anchor point="RIGHT" relativePoint="LEFT">
@@ -310,7 +310,7 @@
 						</Anchor>
 					</Anchors>
 				</Texture>
-				<Texture parentKey="ArrowGlowLEFT" inherits="HelpPlateArrow-GlowDOWN" hidden="true" alphaMode="ADD" alpha="0.5">
+				<Texture name="ArrowGlowLEFT" inherits="HelpPlateArrow-GlowDOWN" hidden="true" alphaMode="ADD" alpha="0.5">
 					<Size x="53" y="21"/>
 					<Anchors>
 						<Anchor point="LEFT" relativePoint="RIGHT">
@@ -332,14 +332,11 @@
 		</Scripts>
 	</Frame>
 
+	<Script file="lib.lua"/>
+
 	<!-- Resize button -->
-	<Button name="Storyline_ResizeButton" virtual="true">
+	<Button name="Storyline_ResizeButton" inherits="UIPanelButton">
 		<Size x="32" y="32"/>
-		<Scripts>
-			<OnLoad><!--
-				Storyline_API.lib.initResize(self);-->
-			</OnLoad>
-		</Scripts>
 		<NormalTexture file="Interface\AddOns\StorylineClassic\Artwork\Buttons\UI-Panel-SmallerButton-Up">
 			<TexCoords left="1" right="0" top="0" bottom="1"/>
 		</NormalTexture>
@@ -347,24 +344,16 @@
 			<TexCoords left="1" right="0" top="0" bottom="1"/>
 		</PushedTexture>
 		<HighlightTexture file="Interface\AddOns\StorylineClassic\Artwork\Buttons\UI-Panel-MinimizeButton-Highlight" alphaMode="ADD"/>
+		<Scripts>
+			<OnLoad><!--
+				this.resizableFrame = "Storyline_NPCFrame";
+				this.minWidth = "700";
+				this.minHeight = "450";
+				Storyline_API.lib.initResize(this);-->
+			</OnLoad>
+		</Scripts>
 	</Button>
 
-	<Frame name="Storyline_ResizeShadowFrame" parent="UIParent" frameStrata="FULLSCREEN" hidden="true" resizable="true">
-		<Backdrop edgeFile="Interface\AddOns\StorylineClassic\Artwork\Glues\Common\TextPanel-Border" tile="true" bgFile="Interface\AddOns\StorylineClassic\Artwork\DialogFrame\UI-DialogBox-Background">
-			<EdgeSize><AbsValue val="32"/></EdgeSize><TileSize><AbsValue val="400"/></TileSize>
-			<BackgroundInsets><AbsInset left="5" right="5" top="5" bottom="5"/></BackgroundInsets>
-		</Backdrop>
-		<Layers>
-			<Layer level="OVERLAY">
-				<FontString name="Storyline_ResizeShadowFrameText" inherits="GameFontNormal" justifyH="CENTER" justifyV="MIDDLE" setAllPoints="true">
-					<Color b="1.0" r="1.0" g="1.0"/>
-				</FontString>
-			</Layer>
-		</Layers>
-	</Frame>
-<!--
-	<Script file="lib.lua"/>
--->
 	<Frame parent="UIParent" name="Storyline_EventFrame">
 		<Anchors>
 			<Anchor point="CENTER"/>
