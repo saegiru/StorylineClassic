@@ -3,7 +3,7 @@
 	
 	<Script file="locales.lua"/>
 	
-	<Include file="Libs/lib.xml"/>
+	<Include file="Libs\lib.xml"/>
 	
 	<Frame name="Storyline_StandardParchmentFrame" virtual="true">
 		<Layers>
@@ -288,7 +288,7 @@
 				</Texture>
 			</Layer>
 			<Layer level="OVERLAY" textureSubLevel="3">
-				<Texture name="Storyline_NPCFrameBanner" file="Interface\AddOns\StorylineClassic\Artwork\Garrison\GarrMission_RewardsBanner-Desaturate.tga"><!--GarrMission_RewardsBanner-Desaturate-->
+				<Texture name="Storyline_NPCFrameBanner" file="Interface\AddOns\StorylineClassic\Artwork\Garrison\GarrMission_RewardsBanner-Desaturate"><!--GarrMission_RewardsBanner-Desaturate-->
 					<Size x="384" y="96"/>
 					<Anchors>
 						<Anchor point="TOP">
@@ -313,7 +313,6 @@
 		<Scripts>
 			<OnLoad>
 				Storyline_NPCFrameBG:SetAlpha(0.5);
-				Storyline_NPCFrameBanner:SetTexture("Interface\\AddOns\\StorylineClassic\\Artwork\\Garrison\\GarrMission_RewardsBanner-Desaturate");
 			</OnLoad>
 		</Scripts>
 		<Frames>
@@ -514,6 +513,11 @@
 								</Anchor>
 							</Anchors>
 						</Texture>
+						<Scripts>
+							<OnLoad>
+								Storyline_NPCFrameRewardsChest:SetTexture("Interface\\AddOns\\StorylineClassic\\Artwork\\Garrison\\GarrMission-"..select(1,UnitFactionGroup("player")).."Chest");
+							</OnLoad>
+						</Scripts>
 					</Layer>
 				</Layers>
 				<Frames>
@@ -521,7 +525,7 @@
 						<Anchors>
 							<Anchor point="CENTER">
 								<Offset>
-									<AbsDimension x="0" y="66"/>
+									<AbsDimension x="0" y="100"/>
 								</Offset>
 							</Anchor>
 						</Anchors>
@@ -916,12 +920,41 @@
 			</Button>
 
 			<!-- RESIZING BUTTON -->
+			<Frame name="Storyline_ResizeShadowFrame" parent="UIParent" frameStrata="FULLSCREEN" hidden="true" resizable="true">
+				<Backdrop edgeFile="Interface\AddOns\StorylineClassic\Artwork\Glues\Common\TextPanel-Border" tile="true" bgFile="Interface\AddOns\StorylineClassic\Artwork\DialogFrame\UI-DialogBox-Background">
+					<EdgeSize>
+						<AbsValue val="32"/>
+					</EdgeSize>
+					<TileSize>
+						<AbsValue val="400"/>
+					</TileSize>
+					<BackgroundInsets>
+						<AbsInset left="5" right="5" top="5" bottom="5"/>
+					</BackgroundInsets>
+				</Backdrop>
+				<Layers>
+					<Layer level="OVERLAY">
+						<FontString name="Storyline_ResizeShadowFrameText" inherits="GameFontNormal" justifyH="CENTER" justifyV="MIDDLE" setAllPoints="true">
+							<Color b="1.0" r="1.0" g="1.0"/>
+						</FontString>
+					</Layer>
+				</Layers>
+				<Scripts>
+					<OnUpdate>
+						Storyline_ResizeShadowFrameUpdateText();
+					</OnUpdate>
+				</Scripts>
+			</Frame>
+			
 			<Button name="Storyline_NPCFrameResizeButton" inherits="Storyline_ResizeButton" hidden="false">
-				<KeyValues>
-					<KeyValue key="resizableFrame" value="Storyline_NPCFrame" type="global"/>
-					<KeyValue key="minWidth" value="700" type="number"/>
-					<KeyValue key="minHeight" value="450" type="number"/>
-				</KeyValues>
+				<Size x="32" y="32"/>
+				<NormalTexture file="Interface\AddOns\StorylineClassic\Artwork\Buttons\UI-Panel-SmallerButton-Up">
+					<TexCoords left="1" right="0" top="0" bottom="1"/>
+				</NormalTexture>
+				<PushedTexture file="Interface\AddOns\StorylineClassic\Artwork\Buttons\UI-Panel-SmallerButton-Down">
+					<TexCoords left="1" right="0" top="0" bottom="1"/>
+				</PushedTexture>
+				<HighlightTexture file="Interface\AddOns\StorylineClassic\Artwork\Buttons\UI-Panel-MinimizeButton-Highlight" alphaMode="ADD"/>
 				<Anchors>
 					<Anchor point="BOTTOMRIGHT">
 						<Offset>
@@ -929,6 +962,14 @@
 						</Offset>
 					</Anchor>
 				</Anchors>
+				<Scripts>
+					<OnLoad>
+						this.resizableFrame = "Storyline_NPCFrame";
+						this.minWidth = "700";
+						this.minHeight = "450";
+						Storyline_API.lib.initResize(this);
+					</OnLoad>
+				</Scripts>
 			</Button>
 	
 			<Button name="BrowserButtonTemplate" virtual="true" hidden="true">
@@ -1071,13 +1112,13 @@
 						</Offset>
 					</Anchor>
 				</Anchors>
-				<Scripts>
+				<Scripts><!--
 					<OnEnter>
 						Storyline_RefreshTooltipForFrame(self);
 					</OnEnter>
 					<OnLeave>
 						Storyline_MainTooltip:Hide();
-					</OnLeave>
+					</OnLeave>-->
 				</Scripts>
 			</Frame>
 		</Frames>
